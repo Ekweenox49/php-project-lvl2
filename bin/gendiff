@@ -38,4 +38,4 @@ $args = Docopt::handle($doc, array('version'=>'Gendiff 1.0'));
       $second = $args['<secondFile>'];
     }
 
-echo(genDiff($first, $second));
+print(genDiff($first, $second));

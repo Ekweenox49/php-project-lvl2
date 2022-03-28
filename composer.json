@@ -1,7 +1,14 @@
 {
     "name": "hexlet/code",
     "description": "Second project",
+    "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Ekweenox49",
+            "email": "nemotim@yandex.ru"
+        }
+    ],
     "autoload": {
         "files": [
              "vendor/docopt/docopt/src/docopt.php",

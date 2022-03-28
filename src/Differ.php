@@ -53,9 +53,17 @@ function genDiff($firstFilePath, $secondFilePath)
 }
 
 function makeRow($type, $key, $oldValue, $newValue) {
+    if (is_bool($newValue)) {
+        $newValue = ($newValue) ? 'true' : 'false';
+    }
+
+    if (is_bool($oldValue)) {
+        $oldValue = ($oldValue) ? 'true' : 'false';
+    }
+
     switch ($type) {
         case 'added':
-            return $row = "  + {$key}: {$newValue}";
+            return $row = "  + {$key}: " . $newValue;;
 
         case 'missed':
             return $row = "  - " . $key . ": " . $oldValue;
@@ -64,7 +72,6 @@ function makeRow($type, $key, $oldValue, $newValue) {
             return $row = "    " . $key . ": " . $newValue;
 
         case 'changed':
-            // return $row = "- " . $key . ": " . $oldValue;
             return $row = "  - " . $key . ": " . $oldValue . "\n  + " . $key . ": " . $newValue;
     }
 }
