@@ -1,0 +1,16 @@
+{
+    "name": "hexlet/code",
+    "description": "Second project",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+             "vendor/docopt/docopt/src/docopt.php"
+        ]
+    },
+    "bin": [
+        "bin/gendiff"
+      ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
