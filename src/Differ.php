@@ -1,6 +1,6 @@
 <?php
 
-namespace GenDiff;
+namespace Differ\Differ;
 
 function genDiff($firstFilePath, $secondFilePath) 
 {
@@ -47,13 +47,15 @@ function genDiff($firstFilePath, $secondFilePath)
 
     $output = "{\n" . $result . "\n}\n";
 
-    print_r($output);
+    // print_r($output);
+
+    return $output;
 }
 
 function makeRow($type, $key, $oldValue, $newValue) {
     switch ($type) {
         case 'added':
-            return $row = "  + " . $key . ": " . $newValue;
+            return $row = "  + {$key}: {$newValue}";
 
         case 'missed':
             return $row = "  - " . $key . ": " . $oldValue;
@@ -81,7 +83,7 @@ function makeRow($type, $key, $oldValue, $newValue) {
 //     "host": "hexlet.io"
 //   }';
 
-$first = '../testData/firstFile.json';
-$second = '../testData/secondFile.json';
+// $first = '../testData/firstFile.json';
+// $second = '../testData/secondFile.json';
 
-  genDiff($first, $second);
+//   genDiff($first, $second);

@@ -4,7 +4,8 @@
     "license": "MIT",
     "autoload": {
         "files": [
-             "vendor/docopt/docopt/src/docopt.php"
+             "vendor/docopt/docopt/src/docopt.php",
+             "src/Differ.php"
         ]
     },
     "bin": [

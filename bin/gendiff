@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use function GenDiff\genDiff;
+use function Differ\Differ\genDiff;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
@@ -27,8 +27,8 @@ Options:
 DOC;
 
 $args = Docopt::handle($doc, array('version'=>'Gendiff 1.0'));
-foreach ($args as $k=>$v)
-    echo $k.': '.json_encode($v).PHP_EOL;
+// foreach ($args as $k=>$v)
+//     echo $k.': '.json_encode($v).PHP_EOL;
 
     if (isset($args['<firstFile>'])) {
       $first = $args['<firstFile>'];
@@ -38,4 +38,4 @@ foreach ($args as $k=>$v)
       $second = $args['<secondFile>'];
     }
 
-print_r(genDiff($first, $second));
+echo(genDiff($first, $second));
