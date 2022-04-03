@@ -2,7 +2,7 @@
 
 namespace Differ\Differ;
 
-function genDiff($firstFilePath, $secondFilePath) 
+function genDiff($firstFilePath, $secondFilePath)
 {
     $firstFile = file_get_contents($firstFilePath);
     $secondFile = file_get_contents($secondFilePath);
@@ -18,7 +18,7 @@ function genDiff($firstFilePath, $secondFilePath)
     $union = array_unique(array_merge($keys1, $keys2));
 
     // print_r($union);
-    
+
     sort($union);
 
     $resultRows = [];
@@ -52,7 +52,8 @@ function genDiff($firstFilePath, $secondFilePath)
     return $output;
 }
 
-function makeRow($type, $key, $oldValue, $newValue) {
+function makeRow($type, $key, $oldValue, $newValue)
+{
     if (is_bool($newValue)) {
         $newValue = ($newValue) ? 'true' : 'false';
     }
@@ -63,7 +64,7 @@ function makeRow($type, $key, $oldValue, $newValue) {
 
     switch ($type) {
         case 'added':
-            return $row = "  + {$key}: " . $newValue;;
+            return $row = "  + {$key}: " . $newValue;
 
         case 'missed':
             return $row = "  - " . $key . ": " . $oldValue;
