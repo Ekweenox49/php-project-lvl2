@@ -30,9 +30,9 @@ jobs:
     - name: Check test coverage
         # Run Tests Coverage
       uses: paambaati/codeclimate-action@v2.6.0
-        env:
+      env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
+      with:
           coverageCommand: make test-coverage
           coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
           debug: true
