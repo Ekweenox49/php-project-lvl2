@@ -17,7 +17,6 @@ function genDiff($firstFilePath, $secondFilePath)
 
     $firstFile = file_get_contents($firstFilePath);
     $secondFile = file_get_contents($secondFilePath);
-    
 
     $params1 = parse($firstFile, getExtention($firstFilePath));
     $params2 = parse($secondFile, getExtention($secondFilePath));
@@ -26,7 +25,6 @@ function genDiff($firstFilePath, $secondFilePath)
     $keys2 = array_keys($params2);
 
     $union = array_unique(array_merge($keys1, $keys2));
-
     sort($union);
 
     $resultRows = [];
