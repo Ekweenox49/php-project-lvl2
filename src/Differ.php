@@ -2,22 +2,30 @@
 
 namespace Differ\Differ;
 
+use function Differ\Parsers\parse;
+
 function genDiff($firstFilePath, $secondFilePath)
 {
+    $filename1Arr = explode(".", basename($firstFilePath));
+    $filename2Arr = explode(".", basename($secondFilePath));
+
+    $extention1 = array_pop($filename1Arr);
+    $extention2 = array_pop($filename2Arr);
+
+    // print_r($extention2);
+    // print_r("\n");
+
     $firstFile = file_get_contents($firstFilePath);
     $secondFile = file_get_contents($secondFilePath);
+    
 
-    $params1 = json_decode($firstFile, true);
-    $params2 = json_decode($secondFile, true);
-    // print_r($params1);
-    // print_r($params2);
+    $params1 = parse($firstFile, getExtention($firstFilePath));
+    $params2 = parse($secondFile, getExtention($secondFilePath));
 
     $keys1 = array_keys($params1);
     $keys2 = array_keys($params2);
 
     $union = array_unique(array_merge($keys1, $keys2));
-
-    // print_r($union);
 
     sort($union);
 
@@ -74,6 +82,15 @@ function makeRow($type, $key, $oldValue, $newValue)
 
         case 'changed':
             return $row = "  - " . $key . ": " . $oldValue . "\n  + " . $key . ": " . $newValue;
+    }
+}
+
+function getExtention($filePath)
+{
+    if (strpos($filePath, ".yml") || strpos($filePath, ".yaml")) {
+        return 'yml';
+    } else {
+        return 'json';
     }
 }
 
