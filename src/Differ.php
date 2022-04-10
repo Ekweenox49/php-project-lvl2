@@ -3,84 +3,57 @@
 namespace Differ\Differ;
 
 use function Differ\Parsers\parse;
+use function Differ\Formatter\form;
 
 function genDiff($firstFilePath, $secondFilePath)
 {
-    $filename1Arr = explode(".", basename($firstFilePath));
-    $filename2Arr = explode(".", basename($secondFilePath));
-
-    $extention1 = array_pop($filename1Arr);
-    $extention2 = array_pop($filename2Arr);
-
-    // print_r($extention2);
-    // print_r("\n");
-
     $firstFile = file_get_contents($firstFilePath);
     $secondFile = file_get_contents($secondFilePath);
 
     $params1 = parse($firstFile, getExtention($firstFilePath));
     $params2 = parse($secondFile, getExtention($secondFilePath));
 
-    $keys1 = array_keys($params1);
-    $keys2 = array_keys($params2);
+    $diff = prepareDiff($params1, $params2);
 
-    $union = array_unique(array_merge($keys1, $keys2));
-    sort($union);
+    $result = form($diff);
 
-    $resultRows = [];
-
-    foreach ($union as $key) {
-        if (isset($params1[$key]) && isset($params2[$key])) {
-            if ($params1[$key] == $params2[$key]) {
-                $resultRows[] = makeRow('non-changed', $key, $params1[$key], $params2[$key]);
-            } else {
-                $resultRows[] = makeRow('changed', $key, $params1[$key], $params2[$key]);
-            }
-        }
-
-        if (isset($params1[$key]) && !isset($params2[$key])) {
-            $resultRows[] = makeRow('missed', $key, $params1[$key], null);
-        }
-
-        if (!isset($params1[$key]) && isset($params2[$key])) {
-            $resultRows[] = makeRow('added', $key, null, $params2[$key]);
-        }
-    }
-
-    // print_r($resultRows);
-
-    $result = implode("\n", $resultRows);
-
-    $output = "{\n" . $result . "\n}\n";
-
-    // print_r($output);
-
-    return $output;
+    return $result;
 }
 
-function makeRow($type, $key, $oldValue, $newValue)
+function prepareDiff($firstData, $secondData)
 {
-    if (is_bool($newValue)) {
-        $newValue = ($newValue) ? 'true' : 'false';
-    }
+    $keys1 = array_keys(get_object_vars($firstData));
+    $keys2 = array_keys(get_object_vars($secondData));
 
-    if (is_bool($oldValue)) {
-        $oldValue = ($oldValue) ? 'true' : 'false';
-    }
+    $unitedKeys = array_unique(array_merge($keys1, $keys2));
+    sort($unitedKeys);
 
-    switch ($type) {
-        case 'added':
-            return $row = "  + {$key}: " . $newValue;
+    $diff = array_map(function ($key) use ($firstData, $secondData) {
+        if (!property_exists($firstData, $key)) {
+            return constructDiffRow('added', $key, null, $secondData->$key);
+        }
 
-        case 'missed':
-            return $row = "  - " . $key . ": " . $oldValue;
+        if (!property_exists($secondData, $key)) {
+            return constructDiffRow('removed', $key, $firstData->$key, null);
+        }
 
-        case 'non-changed':
-            return $row = "    " . $key . ": " . $newValue;
+        if (is_object($firstData->$key) && is_object($secondData->$key)) {
+            return constructDiffRow('object', $key, null, null, prepareDiff($firstData->$key, $secondData->$key));
+        }
 
-        case 'changed':
-            return $row = "  - " . $key . ": " . $oldValue . "\n  + " . $key . ": " . $newValue;
-    }
+        if ($firstData->$key === $secondData->$key) {
+            return constructDiffRow('same', $key, $firstData->$key, $secondData->$key);
+        }
+
+        return constructDiffRow('changed', $key, $firstData->$key, $secondData->$key);
+    }, $unitedKeys);
+
+    return $diff;
+}
+
+function constructDiffRow($type, $key, $oldValue, $newValue, $children = null)
+{
+    return ['type' => $type, 'key' => $key, 'oldValue' => $oldValue, 'newValue' => $newValue, 'children' => $children];
 }
 
 function getExtention($filePath)

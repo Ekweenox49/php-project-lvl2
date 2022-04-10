@@ -8,8 +8,8 @@ function parse($fileData, $format)
 {
     switch ($format) {
         case 'yml':
-            return  Yaml::parse($fileData);
+            return  Yaml::parse($fileData, Yaml::PARSE_OBJECT_FOR_MAP);
         case 'json':
-            return json_decode($fileData, true);
+            return json_decode($fileData);
     }
 }

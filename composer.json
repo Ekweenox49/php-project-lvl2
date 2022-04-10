@@ -13,7 +13,8 @@
         "files": [
              "vendor/docopt/docopt/src/docopt.php",
              "src/Differ.php",
-             "src/Parsers.php"
+             "src/Parsers.php",
+             "src/Formatter.php"
         ],
         "psr-4": {
             "Differ\\Tests\\": "tests",
@@ -25,7 +26,8 @@
       ],
     "require": {
         "docopt/docopt": "^1.0",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "funct/funct": "^1.5"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*",
