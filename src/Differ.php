@@ -64,22 +64,3 @@ function getExtention($filePath)
         return 'json';
     }
 }
-
-
-// $first = '{
-//     "host": "hexlet.io",
-//     "timeout": 50,
-//     "proxy": "123.234.53.22",
-//     "follow": false
-//   }';
-
-//   $second = '{
-//     "timeout": 20,
-//     "verbose": true,
-//     "host": "hexlet.io"
-//   }';
-
-// $first = '../testData/firstFile.json';
-// $second = '../testData/secondFile.json';
-
-//   genDiff($first, $second);
