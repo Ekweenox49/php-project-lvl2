@@ -14,6 +14,8 @@
              "vendor/docopt/docopt/src/docopt.php",
              "src/Differ.php",
              "src/Parsers.php",
+             "src/Formatters/Stylish.php",
+             "src/Formatters/Plane.php",
              "src/Formatter.php"
         ],
         "psr-4": {

@@ -3,9 +3,9 @@
 namespace Differ\Differ;
 
 use function Differ\Parsers\parse;
-use function Differ\Formatter\form;
+use function Differ\Formatter\formatter;
 
-function genDiff($firstFilePath, $secondFilePath)
+function genDiff($firstFilePath, $secondFilePath, $formatName = 'stylish')
 {
     $firstFile = file_get_contents($firstFilePath);
     $secondFile = file_get_contents($secondFilePath);
@@ -15,7 +15,7 @@ function genDiff($firstFilePath, $secondFilePath)
 
     $diff = prepareDiff($params1, $params2);
 
-    $result = form($diff);
+    $result = formatter($diff, $formatName);
 
     return $result;
 }
