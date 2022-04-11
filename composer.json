@@ -16,6 +16,7 @@
              "src/Parsers.php",
              "src/Formatters/Stylish.php",
              "src/Formatters/Plane.php",
+             "src/Formatters/Json.php",
              "src/Formatter.php"
         ],
         "psr-4": {

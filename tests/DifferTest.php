@@ -17,5 +17,8 @@ class DifferTest extends TestCase
 
         $expected3 = file_get_contents("tests/fixtures/resultPlane.txt");
         $this->assertEquals($expected3, genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json", 'plane'));
+
+        $expected4 = file_get_contents("tests/fixtures/resultJson.txt");
+        $this->assertEquals($expected4, genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json", 'json'));
     }
 }

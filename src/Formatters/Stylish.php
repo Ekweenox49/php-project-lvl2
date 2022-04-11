@@ -4,7 +4,7 @@ namespace Differ\Formatters\Stylish;
 
 use function Funct\Collection\flattenAll;
 
-function form(array $diff)
+function StylishForm(array $diff)
 {
     $iter = function ($diff, $depth) use (&$iter) {
         return array_map(function ($node) use ($depth, $iter) {

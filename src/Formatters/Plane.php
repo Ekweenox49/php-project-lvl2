@@ -4,9 +4,9 @@ namespace Differ\Formatters\Plane;
 
 use function Funct\Collection\flattenAll;
 
-function form(array $diff)
+function planeForm($diff)
 {
-    $iter = function ($diff, $path) use (&$iter): array {
+    $iter = function ($diff, $path) use (&$iter) {
         return array_map(function ($node) use ($path, $iter) {
             $children = $node['children'];
 
@@ -33,7 +33,7 @@ function form(array $diff)
     return ("{$result}\n");
 }
 
-function getValue($value): string
+function getValue($value)
 {
     if (is_null($value)) {
         return 'null';
