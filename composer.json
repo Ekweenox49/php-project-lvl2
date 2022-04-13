@@ -15,7 +15,7 @@
              "src/Differ.php",
              "src/Parsers.php",
              "src/Formatters/Stylish.php",
-             "src/Formatters/Plane.php",
+             "src/Formatters/Plain.php",
              "src/Formatters/Json.php",
              "src/Formatter.php"
         ],

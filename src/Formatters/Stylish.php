@@ -6,7 +6,7 @@ use function Functional\flatten;
 
 function StylishForm(array $diff)
 {
-    $iter = function ($diff, $depth) use (&$iter) {
+    $iter = function (array $diff, int $depth) use (&$iter) {
         return array_map(function ($node) use ($depth, $iter) {
 
             $children = $node['children'];
@@ -39,12 +39,12 @@ function StylishForm(array $diff)
     return ("{\n{$result}\n}");
 }
 
-function formIndent(int $depth)
+function formIndent(int $depth): string
 {
     return str_repeat(" ", 4 * $depth);
 }
 
-function formRow($value, $depth)
+function formRow($value, int $depth): string
 {
     if (!is_object($value)) {
         return toString($value);
