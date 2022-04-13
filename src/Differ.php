@@ -4,6 +4,7 @@ namespace Differ\Differ;
 
 use function Differ\Parsers\parse;
 use function Differ\Formatter\formatter;
+use function Functional\sort;
 
 function genDiff(string $firstFilePath, string $secondFilePath, string $formatName = 'stylish'): string
 {
@@ -89,8 +90,8 @@ function prepareDiff(object $firstData, object $secondData): array
 function getUnionKeys(array $firstSet, array $secondSet)
 {
     $union = array_unique(array_merge($firstSet, $secondSet));
-    sort($union);
-    return $union;
+    $sorted = sort($union, fn ($left, $right) => strcmp($left, $right));
+    return $sorted;
 }
 
 // function getUnionKeys(object $firstData, object $secondData): array
@@ -107,7 +108,7 @@ function getUnionKeys(array $firstSet, array $secondSet)
 
 function getExtention(string $filePath): string
 {
-    if (strpos($filePath, ".json")) {
+    if (strpos($filePath, ".json") !== false) {
         return 'json';
     } else {
         return 'yml';
