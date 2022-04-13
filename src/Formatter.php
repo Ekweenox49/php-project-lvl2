@@ -9,7 +9,7 @@ use function Differ\Formatters\Json\jsonForm;
 function formatter($diff, $formatName)
 {
     switch ($formatName) {
-        case 'plane':
+        case 'plain':
             return planeForm($diff);
         case 'json':
             return jsonForm($diff);
