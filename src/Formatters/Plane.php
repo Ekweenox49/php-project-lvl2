@@ -28,8 +28,7 @@ function planeForm($diff)
             }
         }, $diff);
     };
-    $result = implode("\n", flattenAll($iter($diff, [])));
-    return ("{$result}\n");
+    return implode("\n", flattenAll($iter($diff, [])));
 }
 
 function getValue($value)

@@ -36,7 +36,7 @@ function StylishForm(array $diff)
         }, $diff);
     };
     $result = implode("\n", flattenAll($iter($diff, 1)));
-    return ("{\n{$result}\n}\n");
+    return ("{\n{$result}\n}");
 }
 
 function formIndent($depth)
