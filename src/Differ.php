@@ -22,10 +22,10 @@ function genDiff(string $firstFilePath, string $secondFilePath, string $formatNa
 
 function prepareDiff(object $firstData, object $secondData): array
 {
-    // $keys1 = array_keys(get_object_vars($firstData));
-    // $keys2 = array_keys(get_object_vars($secondData));
+    $keys1 = array_keys(get_object_vars($firstData));
+    $keys2 = array_keys(get_object_vars($secondData));
 
-    $unitedKeys = getUnionKeys($firstData, $secondData);
+    $unitedKeys = getUnionKeys($keys1, $keys2);
 
     $diff = array_map(function ($key) use ($firstData, $secondData) {
         if (!property_exists($firstData, $key)) {
@@ -50,19 +50,19 @@ function prepareDiff(object $firstData, object $secondData): array
     return $diff;
 }
 
-// function getUnionKeys(array $firstSet, array $secondSet)
-// {
-//     $union = array_unique(array_merge($firstSet, $secondSet));
-//     $sortedKeys = array_values(sortBy($union, fn($key) => $key));
-//     return $sortedKeys;
-// }
-
-function getUnionKeys(object $firstData, object $secondData): array
+function getUnionKeys(array $firstSet, array $secondSet)
 {
-    $arr1 = get_object_vars($firstData);
-    $arr2 = get_object_vars($secondData);
-    return array_keys(array_merge($arr1, $arr2));
+    $union = array_unique(array_merge($firstSet, $secondSet));
+    sort($union);
+    return $union;
 }
+
+// function getUnionKeys(object $firstData, object $secondData): array
+// {
+//     $arr1 = get_object_vars($firstData);
+//     $arr2 = get_object_vars($secondData);
+//     return array_keys(array_merge($arr1, $arr2));
+// }
 
 function getDiffRow(string $type, string $key, $oldValue, $newValue, $children = null): array
 {
