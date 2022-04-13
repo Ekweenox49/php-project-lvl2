@@ -14,6 +14,9 @@ function StylishForm(array $diff)
             $indent = formIndent($depth - 1);
 
             switch ($node['type']) {
+                case 'object':
+                    $closingBracketIndent = formIndent($depth);
+                    return ["{$indent}    {$node['key']}: {", $iter($children, $depth + 1), "{$closingBracketIndent}}"];
                 case 'added':
                     $newRow = formRow($node['newValue'], $depth);
                     return "{$indent}  + {$node['key']}: {$newRow}";
@@ -29,9 +32,6 @@ function StylishForm(array $diff)
                     $addedRow = "{$indent}  + {$node['key']}: {$newRow}";
                     $deletedRow = "{$indent}  - {$node['key']}: {$oldRow}";
                     return implode("\n", [$deletedRow, $addedRow]);
-                case 'object':
-                    $closingBracketIndent = formIndent($depth);
-                    return ["{$indent}    {$node['key']}: {", $iter($children, $depth + 1), "{$closingBracketIndent}}"];
             };
         }, $diff);
     };

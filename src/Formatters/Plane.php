@@ -12,6 +12,8 @@ function planeForm($diff)
             $children = $node['children'];
 
             switch ($node['type']) {
+                case 'object':
+                    return $iter($children, [...$path, $node['key']]);
                 case 'added':
                     $newValue = getValue($node['newValue']);
                     return "Property '{$fullPath}' was added with value: {$newValue}";
@@ -23,8 +25,6 @@ function planeForm($diff)
                     $oldValue = getValue($node['oldValue']);
                     $newValue = getValue($node['newValue']);
                     return "Property '{$fullPath}' was updated. From {$oldValue} to {$newValue}";
-                case 'object':
-                    return $iter($children, [...$path, $node['key']]);
             }
         }, $diff);
     };
