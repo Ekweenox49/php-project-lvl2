@@ -5,7 +5,7 @@ namespace Differ\Differ;
 use function Differ\Parsers\parse;
 use function Differ\Formatter\formatter;
 
-function genDiff($firstFilePath, $secondFilePath, $formatName = 'stylish')
+function genDiff(string $firstFilePath, string $secondFilePath, string $formatName = 'stylish')
 {
     $firstFile = file_get_contents($firstFilePath);
     $secondFile = file_get_contents($secondFilePath);
@@ -20,7 +20,7 @@ function genDiff($firstFilePath, $secondFilePath, $formatName = 'stylish')
     return $result;
 }
 
-function prepareDiff($firstData, $secondData)
+function prepareDiff(object $firstData, object $secondData)
 {
     $keys1 = array_keys(get_object_vars($firstData));
     $keys2 = array_keys(get_object_vars($secondData));
@@ -50,19 +50,19 @@ function prepareDiff($firstData, $secondData)
     return $diff;
 }
 
-function getUnionKeys($firstSet, $secondSet)
+function getUnionKeys(array $firstSet, array $secondSet)
 {
     $union = array_unique(array_merge($firstSet, $secondSet));
     sort($union);
     return $union;
 }
 
-function getDiffRow($type, $key, $oldValue, $newValue, $children = null)
+function getDiffRow(string $type, string $key, $oldValue, $newValue, $children = null)
 {
     return ['type' => $type, 'key' => $key, 'oldValue' => $oldValue, 'newValue' => $newValue, 'children' => $children];
 }
 
-function getExtention($filePath)
+function getExtention(string $filePath)
 {
     if (strpos($filePath, ".yml") || strpos($filePath, ".yaml")) {
         return 'yml';

@@ -6,7 +6,7 @@ use function Differ\Formatters\Stylish\stylishForm;
 use function Differ\Formatters\Plane\planeForm;
 use function Differ\Formatters\Json\jsonForm;
 
-function formatter($diff, $formatName)
+function formatter(array $diff, string $formatName)
 {
     switch ($formatName) {
         case 'plain':

@@ -39,7 +39,7 @@ function StylishForm(array $diff)
     return ("{\n{$result}\n}");
 }
 
-function formIndent($depth)
+function formIndent(int $depth)
 {
     return str_repeat(" ", 4 * $depth);
 }

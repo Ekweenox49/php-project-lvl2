@@ -4,7 +4,7 @@ namespace Differ\Formatters\Plane;
 
 use function Functional\flatten;
 
-function planeForm($diff)
+function planeForm(array $diff)
 {
     $iter = function ($diff, $path) use (&$iter) {
         return array_map(function ($node) use ($path, $iter) {
