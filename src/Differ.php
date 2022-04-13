@@ -2,8 +2,6 @@
 
 namespace Differ\Differ;
 
-error_reporting(0);
-
 use function Differ\Parsers\parse;
 use function Differ\Formatter\formatter;
 
