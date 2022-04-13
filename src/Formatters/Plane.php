@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Plane;
 
-use function Funct\Collection\flattenAll;
+use function Functional\flatten;
 
 function planeForm($diff)
 {
@@ -28,7 +28,7 @@ function planeForm($diff)
             }
         }, $diff);
     };
-    return implode("\n", flattenAll($iter($diff, [])));
+    return implode("\n", flatten($iter($diff, [])));
 }
 
 function getValue($value)

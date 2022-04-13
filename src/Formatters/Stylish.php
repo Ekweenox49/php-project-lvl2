@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Stylish;
 
-use function Funct\Collection\flattenAll;
+use function Functional\flatten;
 
 function StylishForm(array $diff)
 {
@@ -35,7 +35,7 @@ function StylishForm(array $diff)
             };
         }, $diff);
     };
-    $result = implode("\n", flattenAll($iter($diff, 1)));
+    $result = implode("\n", flatten($iter($diff, 1)));
     return ("{\n{$result}\n}");
 }
 
