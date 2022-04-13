@@ -8,13 +8,10 @@ function planeForm($diff)
 {
     $iter = function ($diff, $path) use (&$iter) {
         return array_map(function ($node) use ($path, $iter) {
+            $fullPath = implode('.', [...$path, $node['key']]);
             $children = $node['children'];
 
-            $fullPath = implode('.', [...$path, $node['key']]);
-
             switch ($node['type']) {
-                case 'object':
-                    return $iter($children, [...$path, $node['key']]);
                 case 'added':
                     $newValue = getValue($node['newValue']);
                     return "Property '{$fullPath}' was added with value: {$newValue}";
@@ -26,6 +23,8 @@ function planeForm($diff)
                     $oldValue = getValue($node['oldValue']);
                     $newValue = getValue($node['newValue']);
                     return "Property '{$fullPath}' was updated. From {$oldValue} to {$newValue}";
+                case 'object':
+                    return $iter($children, [...$path, $node['key']]);
             }
         }, $diff);
     };
