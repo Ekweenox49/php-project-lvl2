@@ -28,6 +28,7 @@
         "bin/gendiff"
       ],
     "require": {
+        "php": "=7.4.3",
         "docopt/docopt": "^1.0",
         "symfony/yaml": "*",
         "funct/funct": "^1.5"
