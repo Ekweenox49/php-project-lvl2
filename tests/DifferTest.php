@@ -11,15 +11,19 @@ class DifferTest extends TestCase
     public function testGenDiff()
     {
         $expected1 = file_get_contents("tests/fixtures/resultTree.txt");
-        $this->assertEquals($expected1, genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json"));
+        $actual1 = genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json");
+        $this->assertEquals($expected1, "{$actual1}\n");
 
         $expected2 = file_get_contents("tests/fixtures/result1.txt");
-        $this->assertEquals($expected2, genDiff("tests/fixtures/firstFile.yaml", "tests/fixtures/secondFile.yaml"));
+        $actual2 = genDiff("tests/fixtures/firstFile.yaml", "tests/fixtures/secondFile.yaml");
+        $this->assertEquals($expected2, "{$actual2}\n");
 
         $expected3 = file_get_contents("tests/fixtures/resultPlane.txt");
-        $this->assertEquals($expected3, genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json", 'plane'));
+        $actual3 = genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json", 'plain');
+        $this->assertEquals($expected3, "{$actual3}\n");
 
         $expected4 = file_get_contents("tests/fixtures/resultJson.txt");
-        $this->assertEquals($expected4, genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json", 'json'));
+        $actual4 = genDiff("tests/fixtures/firstTree.json", "tests/fixtures/secondTree.json", 'json');
+        $this->assertEquals($expected4, "{$actual4}\n");
     }
 }
