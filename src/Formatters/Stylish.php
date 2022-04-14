@@ -44,7 +44,7 @@ function formIndent(int $depth): string
     return str_repeat(" ", 4 * $depth);
 }
 
-function formRow($value, int $depth): string
+function formRow(mixed $value, int $depth): string
 {
     if (is_null($value)) {
         return 'null';
