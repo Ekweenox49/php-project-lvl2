@@ -13,7 +13,7 @@ function formatter(array $diff, string $formatName): string
             return plainForm($diff);
         case 'json':
             return jsonForm($diff);
-        case 'stylish':
+        default:
             return stylishForm($diff);
     }
 }
