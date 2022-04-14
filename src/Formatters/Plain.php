@@ -31,7 +31,7 @@ function plainForm(array $diff)
     return implode("\n", flatten($iter($diff, [])));
 }
 
-function getValue($value)
+function getValue(mixed $value): string
 {
     if (is_null($value)) {
         return 'null';

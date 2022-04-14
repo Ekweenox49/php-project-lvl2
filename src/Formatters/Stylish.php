@@ -46,8 +46,12 @@ function formIndent(int $depth): string
 
 function formRow($value, int $depth): string
 {
+    if (is_null($value)) {
+        return 'null';
+    }
+
     if (!is_object($value)) {
-        return toString($value);
+        return trim(var_export($value, true), "'");
     }
 
     $keys = array_keys(get_object_vars($value));
@@ -60,12 +64,4 @@ function formRow($value, int $depth): string
 
     $result = implode("\n", $lines);
     return "{\n{$result}\n{$indent}}";
-}
-
-function toString($value)
-{
-    if (is_null($value)) {
-        return 'null';
-    }
-    return trim(var_export($value, true), "'");
 }
