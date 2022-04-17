@@ -24,20 +24,26 @@ $ make install
 ```
 
 ### Asciinema
-#### Two plane yaml files
-firstFile.yaml:
-
-| host: "hexlet.io"
-timeout: 50
-proxy: "123.234.53.22"
-follow: false|
-
-secondFile.yaml:
-
-timeout: 20
-verbose: true
-host: "hexlet.io"
-
+#### Two plane yaml files (default stylish output format)
+```sh
+$ gendiff /pathToFile/firstFile.yaml /pathToFile/secondFile.yaml
+```
 <a href="https://asciinema.org/a/pafju3qvmnEbgM3T8ah7Oa62M" target="_blank"><img src="https://asciinema.org/a/pafju3qvmnEbgM3T8ah7Oa62M.svg" /></a>
 
-<a href="https://asciinema.org/a/LiYyOijOhtWMiGExFaawxYmXO" target="_blank"><img src="https://asciinema.org/a/LiYyOijOhtWMiGExFaawxYmXO.svg" /></a>
+#### Two tree-structured json files (default stylish output format)
+```sh
+$ gendiff /pathToFile/firstTree.json /pathToFile/secondTree.json
+```
+<a href="https://asciinema.org/a/BpCBkAIERkLhoZAp5dksXEvHW" target="_blank"><img src="https://asciinema.org/a/BpCBkAIERkLhoZAp5dksXEvHW.svg" /></a>
+
+#### Two tree-structured json files (json output format)
+```sh
+$ gendiff --format json /pathToFile/firstTree.json /pathToFile/secondTree.json
+```
+<a href="https://asciinema.org/a/w8AYV5tUcP2VQp04ZKuq4X9da" target="_blank"><img src="https://asciinema.org/a/w8AYV5tUcP2VQp04ZKuq4X9da.svg" /></a>
+
+#### Two tree-structured json files (plain output format)
+```sh
+$ gendiff --format plain /pathToFile/firstTree.json /pathToFile/secondTree.json
+```
+<a href="https://asciinema.org/a/uu3BOR9MA8BsTn6v3HR9kZ7mC" target="_blank"><img src="https://asciinema.org/a/uu3BOR9MA8BsTn6v3HR9kZ7mC.svg" /></a>
