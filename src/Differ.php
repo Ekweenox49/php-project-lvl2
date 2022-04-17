@@ -30,7 +30,6 @@ function prepareDiff(object $firstData, object $secondData): array
 
     $diff = array_map(function ($key) use ($firstData, $secondData) {
         if (!property_exists($firstData, $key)) {
-            // return getDiffRow('added', $key, null, $secondData->$key);
             return [
                 'type' => 'added',
                 'key' => $key,
@@ -41,7 +40,6 @@ function prepareDiff(object $firstData, object $secondData): array
         }
 
         if (!property_exists($secondData, $key)) {
-            // return getDiffRow('removed', $key, $firstData->$key, null);
             return [
                 'type' => 'removed',
                 'key' => $key,
@@ -52,7 +50,6 @@ function prepareDiff(object $firstData, object $secondData): array
         }
 
         if (is_object($firstData->$key) && is_object($secondData->$key)) {
-            // return getDiffRow('object', $key, null, null, prepareDiff($firstData->$key, $secondData->$key));
             $children = prepareDiff($firstData->$key, $secondData->$key);
             return [
                 'type' => 'object',
@@ -64,7 +61,6 @@ function prepareDiff(object $firstData, object $secondData): array
         }
 
         if ($firstData->$key === $secondData->$key) {
-            // return getDiffRow('same', $key, $firstData->$key, $secondData->$key);
             return [
                 'type' => 'same',
                 'key' => $key,
@@ -74,7 +70,6 @@ function prepareDiff(object $firstData, object $secondData): array
             ];
         }
 
-        // return getDiffRow('changed', $key, $firstData->$key, $secondData->$key);
         return [
             'type' => 'changed',
             'key' => $key,
@@ -94,18 +89,6 @@ function getUnionKeys(array $firstSet, array $secondSet)
     return $sorted;
 }
 
-// function getUnionKeys(object $firstData, object $secondData): array
-// {
-//     $arr1 = get_object_vars($firstData);
-//     $arr2 = get_object_vars($secondData);
-//     return array_keys(array_merge($arr1, $arr2));
-// }
-
-// function getDiffRow($type, $key, $oldValue, $newValue, $children = null): array
-// {
-//  return ['type' => $type, 'key' => $key, 'oldValue' => $oldValue, 'newValue' => $newValue, 'children' => $children];
-// }
-
 function getExtention(string $filePath): string
 {
     if (strpos($filePath, ".json") !== false) {
@@ -114,22 +97,3 @@ function getExtention(string $filePath): string
         return 'yml';
     }
 }
-
-
-// $first = '{
-//     "host": "hexlet.io",
-//     "timeout": 50,
-//     "proxy": "123.234.53.22",
-//     "follow": false
-//   }';
-
-//   $second = '{
-//     "timeout": 20,
-//     "verbose": true,
-//     "host": "hexlet.io"
-//   }';
-
-// $first = '../testData/firstFile.json';
-// $second = '../testData/secondFile.json';
-
-//   genDiff($first, $second);
