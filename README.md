@@ -27,10 +27,10 @@ $ make install
 #### Two plane yaml files
 firstFile.yaml:
 
-host: "hexlet.io"
+| host: "hexlet.io"
 timeout: 50
 proxy: "123.234.53.22"
-follow: false
+follow: false|
 
 secondFile.yaml:
 
