@@ -18,11 +18,7 @@
              "src/Formatters/Plain.php",
              "src/Formatters/Json.php",
              "src/Formatter.php"
-        ],
-        "psr-4": {
-            "Differ\\Tests\\": "tests",
-            "Differ\\": "src"
-        }
+        ]
     },
     "bin": [
         "bin/gendiff"

@@ -1,19 +1,19 @@
 <?php
 
-namespace Differ\Formatter;
+namespace Differ\Formatters;
 
-use function Differ\Formatters\Stylish\stylishForm;
-use function Differ\Formatters\Plane\plainForm;
-use function Differ\Formatters\Json\jsonForm;
+use function Differ\Formatters\Stylish\formStylish;
+use function Differ\Formatters\Plain\formPlain;
+use function Differ\Formatters\Json\formJson;
 
-function formatter(array $diff, string $formatName): string
+function formatize(array $diff, string $formatName): string
 {
     switch ($formatName) {
         case 'plain':
-            return plainForm($diff);
+            return formPlain($diff);
         case 'json':
-            return jsonForm($diff);
+            return formJson($diff);
         default:
-            return stylishForm($diff);
+            return formStylish($diff);
     }
 }

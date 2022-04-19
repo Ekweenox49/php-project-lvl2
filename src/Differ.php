@@ -3,22 +3,28 @@
 namespace Differ\Differ;
 
 use function Differ\Parsers\parse;
-use function Differ\Formatter\formatter;
+use function Differ\Formatters\formatize;
 use function Functional\sort;
 
 function genDiff(string $firstFilePath, string $secondFilePath, string $formatName = 'stylish'): string
 {
-    $firstFile = (string) file_get_contents($firstFilePath);
-    $secondFile = (string) file_get_contents($secondFilePath);
+    $firstFile = getContent($firstFilePath);
+    $secondFile = getContent($secondFilePath);
 
-    $params1 = parse($firstFile, getExtention($firstFilePath));
-    $params2 = parse($secondFile, getExtention($secondFilePath));
+    $parsedFirstFile = parse($firstFile, pathinfo($firstFilePath, PATHINFO_EXTENSION));
+    $parsedSecondFile = parse($secondFile, pathinfo($secondFilePath, PATHINFO_EXTENSION));
 
-    $diff = prepareDiff($params1, $params2);
+    $diff = prepareDiff($parsedFirstFile, $parsedSecondFile);
 
-    $result = formatter($diff, $formatName);
+    return formatize($diff, $formatName);
+}
 
-    return $result;
+function getContent(string $filePath): string
+{
+    if (!file_exists($filePath)) {
+        throw new \Exception("Can't find {$filePath}.");
+    }
+    return (string) file_get_contents($filePath);
 }
 
 function prepareDiff(object $firstData, object $secondData): array
@@ -87,13 +93,4 @@ function getUnionKeys(array $firstSet, array $secondSet)
     $union = array_unique(array_merge($firstSet, $secondSet));
     $sorted = sort($union, fn ($left, $right) => strcmp($left, $right));
     return $sorted;
-}
-
-function getExtention(string $filePath): string
-{
-    if (strpos($filePath, ".json") !== false) {
-        return 'json';
-    } else {
-        return 'yml';
-    }
 }
