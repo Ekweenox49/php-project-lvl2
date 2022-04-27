@@ -4,7 +4,7 @@ namespace Differ\Formatters\Plain;
 
 use function Functional\flatten;
 
-function formPlain(array $diff)
+function format(array $diff)
 {
     $iter = function (array $diff, array $path) use (&$iter) {
         return array_map(function ($node) use ($path, $iter) {

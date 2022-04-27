@@ -1,19 +1,21 @@
 <?php
 
-namespace Differ\Formatters;
+namespace Differ\Formatter;
 
-use function Differ\Formatters\Stylish\formStylish;
-use function Differ\Formatters\Plain\formPlain;
-use function Differ\Formatters\Json\formJson;
+use function Differ\Formatters\Stylish\format as stylish;
+use function Differ\Formatters\Plain\format as plain;
+use function Differ\Formatters\Json\format as json;
 
-function formatize(array $diff, string $formatName): string
+function format(array $diff, string $formatName): string
 {
     switch ($formatName) {
         case 'plain':
-            return formPlain($diff);
+            return plain($diff);
         case 'json':
-            return formJson($diff);
+            return json($diff);
+        case 'stylish':
+            return stylish($diff);
         default:
-            return formStylish($diff);
+            throw new \Exception("Format '{$formatName}' is not supported. Supported formats: plain, json, stylish.");
     }
 }

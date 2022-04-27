@@ -3,7 +3,7 @@
 namespace Differ\Differ;
 
 use function Differ\Parsers\parse;
-use function Differ\Formatters\formatize;
+use function Differ\Formatter\format;
 use function Functional\sort;
 
 function genDiff(string $firstFilePath, string $secondFilePath, string $formatName = 'stylish'): string
@@ -16,7 +16,7 @@ function genDiff(string $firstFilePath, string $secondFilePath, string $formatNa
 
     $diff = prepareDiff($parsedFirstFile, $parsedSecondFile);
 
-    return formatize($diff, $formatName);
+    return format($diff, $formatName);
 }
 
 function getContent(string $filePath): string
@@ -32,7 +32,8 @@ function prepareDiff(object $firstData, object $secondData): array
     $keys1 = array_keys(get_object_vars($firstData));
     $keys2 = array_keys(get_object_vars($secondData));
 
-    $unitedKeys = getUnionKeys($keys1, $keys2);
+    $union = array_unique(array_merge($keys1, $keys2));
+    $sortedKeys = sort($union, fn ($left, $right) => strcmp($left, $right));
 
     $diff = array_map(function ($key) use ($firstData, $secondData) {
         if (!property_exists($firstData, $key)) {
@@ -83,14 +84,7 @@ function prepareDiff(object $firstData, object $secondData): array
             'newValue' => $secondData->$key,
             'children' => null
         ];
-    }, $unitedKeys);
+    }, $sortedKeys);
 
     return $diff;
-}
-
-function getUnionKeys(array $firstSet, array $secondSet)
-{
-    $union = array_unique(array_merge($firstSet, $secondSet));
-    $sorted = sort($union, fn ($left, $right) => strcmp($left, $right));
-    return $sorted;
 }
