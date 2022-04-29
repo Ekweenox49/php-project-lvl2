@@ -9,17 +9,62 @@ use function Differ\Differ\genDiff;
 class DifferTest extends TestCase
 {
     /**
-     * @dataProvider myDataProvider
+     * @dataProvider formatProvider
      */
-    public function testGenDiff(string $firstFilePath, string $secondFilePath, string $expectedOutput, string $format)
+    public function testGenDiffStylish(string $firstFilePath, string $secondFilePath)
     {
 
         $firstFile = $this->getFixturesPath($firstFilePath);
         $secondFile = $this->getFixturesPath($secondFilePath);
-        $output = $this->getFixturesPath($expectedOutput);
+        $output = $this->getFixturesPath('resultStylish.txt');
 
         $expected = trim(file_get_contents($output));
-        $actual = genDiff($firstFile, $secondFile, $format);
+        $actual = genDiff($firstFile, $secondFile, 'stylish');
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @dataProvider formatProvider
+     */
+    public function testGenDiffPlain(string $firstFilePath, string $secondFilePath)
+    {
+
+        $firstFile = $this->getFixturesPath($firstFilePath);
+        $secondFile = $this->getFixturesPath($secondFilePath);
+        $output = $this->getFixturesPath('resultPlain.txt');
+
+        $expected = trim(file_get_contents($output));
+        $actual = genDiff($firstFile, $secondFile, 'plain');
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @dataProvider formatProvider
+     */
+    public function testGenDiffJson(string $firstFilePath, string $secondFilePath)
+    {
+
+        $firstFile = $this->getFixturesPath($firstFilePath);
+        $secondFile = $this->getFixturesPath($secondFilePath);
+        $output = $this->getFixturesPath('resultJson.txt');
+
+        $expected = trim(file_get_contents($output));
+        $actual = genDiff($firstFile, $secondFile, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @dataProvider formatProvider
+     */
+    public function testGenDiffDefault(string $firstFilePath, string $secondFilePath)
+    {
+
+        $firstFile = $this->getFixturesPath($firstFilePath);
+        $secondFile = $this->getFixturesPath($secondFilePath);
+        $output = $this->getFixturesPath('resultStylish.txt');
+
+        $expected = trim(file_get_contents($output));
+        $actual = genDiff($firstFile, $secondFile);
         $this->assertEquals($expected, $actual);
     }
 
@@ -29,15 +74,11 @@ class DifferTest extends TestCase
         return $dir . $fileName;
     }
 
-    public function myDataProvider()
+    public function formatProvider()
     {
         return [
-            'json files stylish output' => ["firstTree.json", "secondTree.json", "resultStylish.txt", 'stylish'],
-            'yaml files stylish output' => ["firstTree.yaml", "secondTree.yaml", "resultStylish.txt", 'stylish'],
-            'json files plain output' => ["firstTree.json", "secondTree.json", "resultPlain.txt", 'plain'],
-            'yaml files plain output' => ["firstTree.yaml", "secondTree.yaml", "resultPlain.txt", 'plain'],
-            'json files json output' => ["firstTree.json", "secondTree.json", "resultJson.txt", 'json'],
-            'yaml files json output' => ["firstTree.yaml", "secondTree.yaml", "resultJson.txt", 'json']
+            'json input' => ["firstTree.json", "secondTree.json"],
+            'yaml input' => ["firstTree.yaml", "secondTree.yaml"]
         ];
     }
 }

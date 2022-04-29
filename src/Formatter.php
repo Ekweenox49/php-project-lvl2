@@ -2,19 +2,19 @@
 
 namespace Differ\Formatter;
 
-use function Differ\Formatters\Stylish\format as stylish;
-use function Differ\Formatters\Plain\format as plain;
-use function Differ\Formatters\Json\format as json;
+use function Differ\Formatters\Stylish\format as formStylish;
+use function Differ\Formatters\Plain\format as formPlain;
+use function Differ\Formatters\Json\format as formJson;
 
 function format(array $diff, string $formatName): string
 {
     switch ($formatName) {
         case 'plain':
-            return plain($diff);
+            return formPlain($diff);
         case 'json':
-            return json($diff);
+            return formJson($diff);
         case 'stylish':
-            return stylish($diff);
+            return formStylish($diff);
         default:
             throw new \Exception("Format '{$formatName}' is not supported. Supported formats: plain, json, stylish.");
     }
